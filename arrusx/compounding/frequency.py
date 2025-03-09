@@ -32,7 +32,7 @@ class FrequencyCompound(Operation):
             p = cp.fft.ifft(p, axis=-1)
             parts.append(p)
         parts = cp.stack(parts)
-        return cp.mean(cp.abs(parts))
+        return cp.mean(cp.abs(parts), axis=0)
 
 
 
