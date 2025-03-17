@@ -1,0 +1,1 @@
+from arrusx.compounding.frequency import FrequencyCompound

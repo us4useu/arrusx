@@ -21,8 +21,8 @@ class FrequencyCompound(Operation):
             mask = cp.logical_and(f >= f_low, f <= f_high)
             mask = mask.astype(cp.float32)
             self.masks.append(mask)
-
-        return const_metadata
+        output_shape = (len(self.bands), ) + const_metadata.input_shape
+        return const_metadata.copy(input_shape=output_shape)
 
     def process(self, data):
         parts = []
@@ -32,7 +32,7 @@ class FrequencyCompound(Operation):
             p = cp.fft.ifft(p, axis=-1)
             parts.append(p)
         parts = cp.stack(parts)
-        return cp.mean(cp.abs(parts), axis=0)
+        return parts
 
 
 
